@@ -22,6 +22,7 @@ const ProductState = (props) => {
     setFeatured(data?.featuredProducts);
     setLoading(false)
   };
+
   const getOnSale = async () => {
     setLoading(true)
     const { data } = await axios.get(`${host}/api/product/allonsale`);
@@ -31,12 +32,15 @@ const ProductState = (props) => {
 
 
 
+  // This Api
   const getCategories = async () => {
     setLoading(true)
     const { data } = await axios.get(`${host}/api/category/allcategories`);
     setCategories(data?.categories);
     setLoading(false)
   };
+
+  // This Api
   const getProducts = async () => {
     setLoading(true)
     const { data } = await axios.get(`${host}/api/product/allProducts`);

@@ -231,7 +231,7 @@ const WholesaleOrder = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredRecords.map((order) => {
+                  {filteredRecords.slice().reverse().map((order) => {
                     let date = new Date(order.date);
                     return (
                       <tr className="text-center align-middle" key={order._id}>

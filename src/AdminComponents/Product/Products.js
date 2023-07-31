@@ -90,7 +90,6 @@ const AdminProducts = () => {
     element.click();
   }
 
-  console.log("Now Products are", products);
 
   return (
     <div className="container-fluid">
