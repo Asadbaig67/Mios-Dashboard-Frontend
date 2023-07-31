@@ -23,6 +23,8 @@ const DropshipPending = () => {
     }
   }
 
+  console.log(allProfits);
+
 
   return (
     <>

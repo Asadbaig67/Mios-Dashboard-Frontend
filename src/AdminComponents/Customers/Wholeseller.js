@@ -151,6 +151,7 @@ const WholeSeller = () => {
                   <th>City</th>
                   <th>Address</th>
                   <th>Role</th>
+                  <th>Status</th>
                   <th>Delete</th>
                   <th>Edit</th>
                 </tr>
@@ -166,6 +167,7 @@ const WholeSeller = () => {
                       <td> {item.city && item.city} </td>
                       <td> {item.address && item.address} </td>
                       <td> {item.role} </td>
+                      <td> {item.wholesellerStatus ? 'True' : 'False'} </td>
                       <td><button className='btn btn-danger' id={item._id} onClick={deleteAccount}>Delete</button> </td>
                       <td id='Edit'><Link to={`/admin/customer/edit/${item._id}`}><button className='btn btn-info' id={item._id} >Edit</button> </Link> </td>
                     </tr>

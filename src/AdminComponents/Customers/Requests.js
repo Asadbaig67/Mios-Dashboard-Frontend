@@ -125,6 +125,8 @@ const Requests = () => {
   }
 
 
+  console.log("filterUsers", filterUsers);
+
   return (
     <center>
       <ReactNotifications />
@@ -171,7 +173,7 @@ const Requests = () => {
                       <td> {item.city && item.city} </td>
                       <td> {item.address && item.address} </td>
                       <td> {item.role} </td>
-                      <td> {item.dropShipperStatus ? `True` : `False`}</td>
+                      <td> {item.role === "wholeseller" && item.wholesellerStatus ? 'True' : (item.role === "dropshipper" && item.dropShipperStatus ? 'true' : 'false')}</td>
                       <td><button className='btn btn-danger' id={item._id} onClick={deleteAccount}>Delete</button> </td>
                       <td><button className='btn btn-info' id={item._id} onClick={approveAccount}>Approve</button> </td>
                       <td id='Edit'><Link to={`/admin/customer/edit/${item._id}`}><button className='btn btn-info' id={item._id} >Edit</button> </Link> </td>

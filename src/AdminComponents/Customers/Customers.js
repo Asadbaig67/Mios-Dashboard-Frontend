@@ -127,7 +127,8 @@ const Customers = () => {
                     <td> {item.city && item.city} </td>
                     <td> {item.address && item.address} </td>
                     <td> {item.role} </td>
-                    <td> {(item.role === "dropshipper") ? (item.dropShipperStatus ? `True` : `False`) : `--`} </td>
+                    {/* <td> {(item.role === "dropshipper") ? (item.dropShipperStatus ? `True` : `False`) : `--`} </td> */}
+                    <td> {item.role === "wholeseller" && item.wholesellerStatus ? 'True' : (item.role === "dropshipper" && item.dropShipperStatus ? 'true' : 'false')} </td>
                     <td><Link to={`/admin/customer/edit/${item._id}`}><button className="btn btn-info" id={item._id} >Edit</button> </Link> </td>
                     <td><button id={item._id} className="btn btn-danger" onClick={deleteAccount}>Delete</button> </td>
                   </tr>

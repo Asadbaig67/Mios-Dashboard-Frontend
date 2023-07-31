@@ -26,6 +26,21 @@ const AdminProducts = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("query") || "");
+  const [checkFilter, setfeatured] = useState({
+    featured: false,
+    onSale: false
+  });
+
+  const setChecked = (e) => {
+    setfeatured({ ...checkFilter, [e.target.name]: e.target.checked });
+    if (e.target.checked) {
+      setFilter(products.filter((pro) => {
+        return pro[e.target.name] === true;
+      }));
+    } else {
+      setFilter(products);
+    }
+  }
 
   const [filter, setFilter] = useState([])
 
@@ -75,9 +90,7 @@ const AdminProducts = () => {
     element.click();
   }
 
-  
-
-
+  console.log("Now Products are", products);
 
   return (
     <div className="container-fluid">
@@ -96,50 +109,69 @@ const AdminProducts = () => {
             </Link>
             <button className="btn btn-primary btn-sm" onClick={download}>Export</button>
           </div>
+
         </div>
 
       }
       <ReactNotifications /><br />
       {loading ? <Loader /> :
-        <table className="table" width={"95%"}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Photo</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>SkuNumber</th>
-              <th>Stock</th>
-              <th>Wholeseller Price</th>
-              <th>Dropshipper Price</th>
-              <th>Featured</th>
-              <th>OnSale</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          {filter && filter.map((item, ind) => {
-            return (
-              <tbody key={ind}>
-                <tr>
-                  <td>{ind + 1}</td>
-                  <td> <img src={item.photo.url} alt="" height="50px" width={"50px"} /> </td>
-                  <td> {item.title} </td>
-                  <td>{item.category.name}</td>
-                  <td>{item.skuNumber}</td>
-                  <td>{item.stock}</td>
-                  <td>{item.wholesalePrice}</td>
-                  <td>{item.dropshipperPrice}</td>
-                  <td>{item.featured ? `Yes` : `No`}</td>
-                  <td>{item.onSale ? `Yes` : `No`}</td>
-                  <td><Link to={`/admin/product/edit/${item._id}`}><button className="btn btn-info" id={item._id} >Edit</button> </Link> </td>
-                  <td><button id={item._id} className="btn btn-danger" onClick={deleteProduct} >Delete</button> </td>
-                </tr>
-              </tbody>
-            )
-          })}
+        <>
+          <div className="d-flex flex-row mt-2">
+            <div className="ms-auto me-5">
+              <div class="form-check">
+                <input class="form-check-input" name="featured" value={checkFilter.featured} onChange={setChecked} type="checkbox" id="flexCheckDefault" />
+                <small class="form-check-label" for="flexCheckDefault">
+                  Only Featured
+                </small>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="onSale" value={checkFilter.onSale} onChange={setChecked} type="checkbox" id="flexCheckChecked" />
+                <small class="form-check-label" for="flexCheckChecked">
+                  Only On Sale
+                </small>
+              </div>
+            </div>
+          </div>
+          <table className="table" width={"95%"}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>SkuNumber</th>
+                <th>Stock</th>
+                <th>Wholeseller Price</th>
+                <th>Dropshipper Price</th>
+                <th>Featured</th>
+                <th>OnSale</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            {filter && filter.map((item, ind) => {
+              return (
+                <tbody key={ind}>
+                  <tr>
+                    <td>{ind + 1}</td>
+                    <td> <img src={item.photo.url} alt="" height="50px" width={"50px"} /> </td>
+                    <td> {item.title} </td>
+                    <td>{item.category.name}</td>
+                    <td>{item.skuNumber}</td>
+                    <td>{item.stock}</td>
+                    <td>{item.wholesalePrice}</td>
+                    <td>{item.dropshipperPrice}</td>
+                    <td>{item.featured ? `Yes` : `No`}</td>
+                    <td>{item.onSale ? `Yes` : `No`}</td>
+                    <td><Link to={`/admin/product/edit/${item._id}`}><button className="btn btn-info" id={item._id} >Edit</button> </Link> </td>
+                    <td><button id={item._id} className="btn btn-danger" onClick={deleteProduct} >Delete</button> </td>
+                  </tr>
+                </tbody>
+              )
+            })}
 
-        </table>}
+          </table>
+        </>}
     </div >
   );
 }

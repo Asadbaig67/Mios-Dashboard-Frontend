@@ -139,7 +139,7 @@ function App() {
                     <Route path="/" element={DSrequest ? <RequestedDS setUser={setUser} /> : (user._id && user.isAdmin === false) ? <ProductMain data="fetchallproducts" /> : admin ? <Dashboard /> : <Navigate to="/login" />} />
                     <Route path="/login" element={DSrequest ? <Navigate to="/" /> : (user._id && user.isAdmin === false) ? <Navigate to="/" /> : admin ? <Navigate to="/" /> : <Login />} />
                     <Route path="/signup" element={DSrequest ? <Navigate to="/" /> : (user._id && user.isAdmin === false) ? <Navigate to="/" /> : admin ? <Navigate to="/" /> : <Signup setuser={setUser} />} />
-                    <Route path='/productMain' element={DSrequest ? <RequestedDS setUser={setUser} /> : (user._id && user.isAdmin === false) ? <ProductMain /> : <Navigate to="/login" />} />
+                    <Route path='/productMain' element={DSrequest ? <c setUser={setUser} /> : (user._id && user.isAdmin === false) ? <ProductMain /> : <Navigate to="/login" />} />
                     {/* <Route path='/categories/:id' element={DSrequest ? <RequestedDS setUser={setUser} /> : (user._id && user.isAdmin == false) ? <CategoryProducts params={{ id: ':id' }} /> : null} /> */}
                     <Route path='/featured' element={DSrequest ? <RequestedDS setUser={setUser} /> : (user._id && user.isAdmin === false) ? <FeaturedProducts /> : null} />
                     <Route path='/onsale' element={DSrequest ? <RequestedDS setUser={setUser} /> : (user._id && user.isAdmin === false) ? <OnSaleProducts /> : null} />
