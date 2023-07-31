@@ -212,9 +212,9 @@ const DropshipOrder = () => {
                     <th colSpan="1" className="text-center align-middle">
                       Order Amount
                     </th>
-                    <th colSpan="1" className="text-center align-middle">
+                    {/* <th colSpan="1" className="text-center align-middle">
                       Type
-                    </th>
+                    </th> */}
                     <th colSpan="1" className="text-center align-middle">
                       Product Details
                     </th>
@@ -262,9 +262,9 @@ const DropshipOrder = () => {
                         <td className="text-center align-middle">
                           {order.orderAmount}
                         </td>
-                        <td className="text-center align-middle">
+                        {/* <td className="text-center align-middle">
                           {order.orderType}
-                        </td>
+                        </td> */}
                         <td className="text-center align-middle hover-pointer ">
                           <Link to={`/admin/orderproduct/details/${order._id}`}>
                             <span className="btn btn-primary btn-sm">

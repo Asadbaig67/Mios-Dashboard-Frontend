@@ -12,7 +12,7 @@ const ProductState = (props) => {
   const [subTotal, setSubTotal] = useState(0);
   const [shippCat, setShippingCat] = useState(0);
   const [MyShopItems, setMyShopItems] = useState([]);
-
+  const [allproducts, setAllProducts] = useState([])
   const [featured, setFeatured] = useState([])
   const [onSale, setOnSale] = useState([])
 
@@ -39,6 +39,15 @@ const ProductState = (props) => {
     setCategories(data?.categories);
     setLoading(false)
   };
+
+  // New Api
+  const GetAllProducts = async () => {
+
+    const { data } = await axios.get(`${host}/api/product/allactiveproducts`);
+    setAllProducts(data?.products);
+    setLoading(false)
+
+  }
 
   // This Api
   const getProducts = async () => {
@@ -169,6 +178,8 @@ const ProductState = (props) => {
         CartItems,
         subTotal,
         shippCat,
+        allproducts,
+        GetAllProducts,
         setSubTotal,
         removeCartProduct,
         updateCartProductQty,

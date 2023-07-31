@@ -10,7 +10,7 @@ import Papa from 'papaparse';
 
 const AdminProducts = () => {
   const host = process.env.REACT_APP_API_URL;
-  const { products, getProducts, loading, setLoading } = useContext(ProductContext);
+  const { products, getProducts, loading, setLoading, allproducts, GetAllProducts } = useContext(ProductContext);
   const deleteProduct = async (e) => {
     try {
       setLoading(true);
@@ -34,11 +34,11 @@ const AdminProducts = () => {
   const setChecked = (e) => {
     setfeatured({ ...checkFilter, [e.target.name]: e.target.checked });
     if (e.target.checked) {
-      setFilter(products.filter((pro) => {
+      setFilter(allproducts.filter((pro) => {
         return pro[e.target.name] === true;
       }));
     } else {
-      setFilter(products);
+      setFilter(allproducts);
     }
   }
 
@@ -51,14 +51,14 @@ const AdminProducts = () => {
 
   useEffect(() => {
     if (query) {
-      const newProducts = products.filter((pro) => {
+      const newProducts = allproducts.filter((pro) => {
         return pro.title.toLowerCase().includes(query.toLowerCase());
       });
       setFilter(newProducts);
     } else {
-      setFilter(products);
+      setFilter(allproducts);
     }
-  }, [query, products]);
+  }, [query, allproducts]);
 
 
   const csVDataDownload = filter.map((item) => {
@@ -90,6 +90,26 @@ const AdminProducts = () => {
     element.click();
   }
 
+  const ChangeActivation = async (e) => {
+    try {
+      setLoading(true);
+      await axios.put(`${host}/api/product/changeActivation/${e.currentTarget.id}`);
+      await GetAllProducts();
+      setLoading(false);
+    }
+    catch (error) {
+      setLoading(false);
+      Notification("Error", error.response.data, 'danger');
+    }
+  }
+
+  useEffect(() => {
+    // getProducts();
+    GetAllProducts();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  console.log("allproducts", allproducts);
 
   return (
     <div className="container-fluid">
@@ -98,7 +118,7 @@ const AdminProducts = () => {
           <div className="col-md-4 justify-content-center">
             <input type="text" name='search' onChange={handleChange} value={query} className='form-control' placeholder='Search Product by Title' />
           </div>
-          <div className="col-md-4 mt-2 text-center">All Products ({products && products.length})</div>
+          <div className="col-md-4 mt-2 text-center">All Products ({allproducts && allproducts.length})</div>
           <div className="col-md-4 text-center d-flex justify-content-evenly">
             <Link to="/admin/addProduct">
               <button className="btn btn-primary btn-sm">Add New</button>
@@ -143,9 +163,11 @@ const AdminProducts = () => {
                 <th>Wholeseller Price</th>
                 <th>Dropshipper Price</th>
                 <th>Featured</th>
+                <th>Active</th>
                 <th>OnSale</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Edit Activation</th>
               </tr>
             </thead>
             {filter && filter.map((item, ind) => {
@@ -161,9 +183,11 @@ const AdminProducts = () => {
                     <td>{item.wholesalePrice}</td>
                     <td>{item.dropshipperPrice}</td>
                     <td>{item.featured ? `Yes` : `No`}</td>
+                    <td>{item.deActivated ? `No` : `Yes`}</td>
                     <td>{item.onSale ? `Yes` : `No`}</td>
                     <td><Link to={`/admin/product/edit/${item._id}`}><button className="btn btn-info" id={item._id} >Edit</button> </Link> </td>
                     <td><button id={item._id} className="btn btn-danger" onClick={deleteProduct} >Delete</button> </td>
+                    <td><button id={item._id} className={`btn ${item.deActivated ? 'btn-success' : 'btn-danger'}`} onClick={ChangeActivation} >{item.deActivated ? "Activate" : "Deactivate"}</button> </td>
                   </tr>
                 </tbody>
               )
