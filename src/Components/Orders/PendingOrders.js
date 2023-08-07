@@ -54,7 +54,8 @@ const PendingOrders = () => {
                 <table className='table table-striped table-responsive table-hover' width={'90%'}>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Sr#</th>
+                            {/* <th>ID</th> */}
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Address</th>
@@ -77,7 +78,8 @@ const PendingOrders = () => {
                             var min = date.getMinutes();
                             return (
                                 <tr key={ind}>
-                                    <td>{item.id}</td>
+                                    <td>{ind + 1}</td>
+                                    {/* <td>{item.id}</td> */}
                                     <td>{item.shippingDetails.name}</td>
                                     <td>{item.shippingDetails.phone}</td>
                                     <td>{item.shippingDetails.address}</td>

@@ -599,34 +599,35 @@ export default function Sidebar() {
                     location.pathname.toLowerCase() !== "/onsale" ||
                     location.pathname.toLowerCase() !== "/instock" ||
                     location.pathname.toLowerCase() !== "/outofstock" ||
-                    location.pathname.includes("/category/")) && (
-                    <div>
-                      <h6 style={{ paddingTop: "10px", paddingLeft: "6px" }}>
-                        Categories
-                      </h6>
-                      {categories.map((item, ind) => {
-                        return (
-                          <Link key={ind} to={`/category/${item._id}`}>
-                            <p
-                              className="AdminSidebarSubHead mt-0 mb-0 px-2"
-                              style={
-                                location.pathname.toLowerCase() ===
-                                `/category/${item._id}`
-                                  ? {
-                                      backgroundColor: "deepskyblue",
-                                      color: "white",
-                                    }
-                                  : null
-                              }
-                            >
-                              {capitalizeFirstWord(item?.name)} (
-                              {count[item._id]})
-                            </p>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
+                    location.pathname.includes("/category/")) &&
+                    location.pathname !== "/user/dashboard" && (
+                      <div>
+                        <h6 style={{ paddingTop: "10px", paddingLeft: "6px" }}>
+                          Categories
+                        </h6>
+                        {categories.map((item, ind) => {
+                          return (
+                            <Link key={ind} to={`/category/${item._id}`}>
+                              <p
+                                className="AdminSidebarSubHead mt-0 mb-0 px-2"
+                                style={
+                                  location.pathname.toLowerCase() ===
+                                  `/category/${item._id}`
+                                    ? {
+                                        backgroundColor: "deepskyblue",
+                                        color: "white",
+                                      }
+                                    : null
+                                }
+                              >
+                                {capitalizeFirstWord(item?.name)} (
+                                {count[item._id]})
+                              </p>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
                 </div>
               </ul>
             </div>

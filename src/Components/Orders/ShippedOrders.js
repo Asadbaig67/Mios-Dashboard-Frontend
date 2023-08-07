@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 const ShippedOrders = () => {
@@ -12,13 +12,16 @@ const ShippedOrders = () => {
         getOrders();
     }, [])
 
+    console.log("Wow", orders);
+
     return (
         <div>
             <h1 style={{ textAlign: 'center' }}>My Orders</h1>
             <table className='table table-striped table-responsive table-hover' width={'90%'}>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        {/* <th>ID</th> */}
+                        <th>Sr#</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Address</th>
@@ -40,7 +43,8 @@ const ShippedOrders = () => {
                         var min = date.getMinutes();
                         return (
                             <tr key={ind}>
-                                <td>{item.id}</td>
+                                <td>{ind + 1}</td>
+                                {/* <td>{item.id}</td> */}
                                 <td>{item.shippingDetails.name}</td>
                                 <td>{item.shippingDetails.phone}</td>
                                 <td>{item.shippingDetails.address}</td>
